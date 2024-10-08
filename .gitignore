@@ -1,0 +1,4 @@
+# Ignore sensitive files
+credentials.json
+token.json
+sheet_credentials.json
