@@ -39,9 +39,9 @@ def authenticate():
 
 def extract_codes_from_body(body_data):
     """Extract specific codes from the body content"""
-    tablet_pattern = r'<tr><td>平板 9折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
-    smartwatch_pattern = r'<tr><td>智慧手錶 85折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
-    earphone_pattern = r'<tr><td>耳機 7折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
+    tablet_pattern = r'<tr><td>指定平板 9折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
+    smartwatch_pattern = r'<tr><td>指定智慧手錶/智慧手環 最低7折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
+    earphone_pattern = r'<tr><td>指定耳機 7折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
 
     tablet_match = re.search(tablet_pattern, body_data)
     smartwatch_match = re.search(smartwatch_pattern, body_data)
@@ -196,7 +196,7 @@ def main():
     gc = gspread.service_account(filename='sheet_credentials.json')
 
     # 開啟指定的 Google Sheets
-    spreadsheet = gc.open('一般神奇序號')
+    spreadsheet = gc.open('一般神奇序號2024')
     worksheet = spreadsheet.get_worksheet(0)
 
     # 將新資料追加到 Google Sheets 中
