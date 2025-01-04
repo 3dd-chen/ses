@@ -112,7 +112,7 @@ def fetch_messages(service, query):
                     sender = header['value']
                 if name.lower() == 'subject':
                     subject = header['value']
-            if subject == "Samsung星學力 三星智慧館校園門市專屬活動〔通知信〕":
+            if subject == "【開信領取】Samsung | 2025 年星學力教育優惠 (校園門市)":
                 body = msg_data.get('body')
                 if body:
                     if 'data' in body:
@@ -190,12 +190,12 @@ def main():
         pass
     stored_datetime = datetime.strptime(stored_timestamp, "%Y-%m-%d %H:%M:%S")
 
-    query = f'label:inbox subject:"Samsung星學力 三星智慧館校園門市專屬活動〔通知信〕" after:{int(stored_datetime.timestamp())}'
+    query = f'label:inbox subject:"【開信領取】Samsung | 2025 年星學力教育優惠 (校園門市)" after:{int(stored_datetime.timestamp())}'
     service = authenticate()
     data = fetch_messages(service, query)
 
     gc = gspread.service_account(filename='sheet_credentials.json')
-    spreadsheet = gc.open('神奇序號2024')
+    spreadsheet = gc.open('神奇序號2025')
     worksheet = spreadsheet.get_worksheet(0)
 
     if data:

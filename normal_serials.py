@@ -90,9 +90,9 @@ def fetch_messages(service, query):
     messages = results.get('messages', [])
     
     data = []
-    tablet_pattern = r'<tr><td>平板 9折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
-    smartwatch_pattern = r'<tr><td>智慧手錶 85折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
-    earphone_pattern = r'<tr><td>耳機 7折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
+    tablet_pattern = r'<tr><td>指定平板 9折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
+    smartwatch_pattern = r'<tr><td>指定智慧手錶/智慧手環 最低7折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
+    earphone_pattern = r'<tr><td>指定耳機 7折序號 </td><td>([A-Z0-9]+)</td><td>([A-Z0-9]+)</td></tr>'
     
     if not messages:
         print('No messages found.')
@@ -107,7 +107,7 @@ def fetch_messages(service, query):
                     sender = header['value']
                 if name.lower() == 'subject':
                     subject = header['value']
-            if subject == "Samsung星學力 三星智慧館校園門市專屬活動〔通知信〕":
+            if subject == "【開信領取】Samsung | 2025 年星學力教育優惠 (校園門市)":
                 body = msg_data.get('body')
                 if body:
                     if 'data' in body:
@@ -188,7 +188,7 @@ def main():
     stored_datetime = datetime.strptime(stored_timestamp, "%Y-%m-%d %H:%M:%S")
 
     # Fetch messages using a query (e.g., 'label:inbox subject:"Samsung星學力 三星智慧館校園門市專屬活動〔通知信〕"')
-    query = f'label:inbox subject:"Samsung星學力 三星智慧館校園門市專屬活動〔通知信〕" after:{int(stored_datetime.timestamp())}'
+    query = f'label:inbox subject:"【開信領取】Samsung | 2025 年星學力教育優惠 (校園門市)" after:{int(stored_datetime.timestamp())}'
     service = authenticate()
     data = fetch_messages(service, query)
 
@@ -196,7 +196,7 @@ def main():
     gc = gspread.service_account(filename='sheet_credentials.json')
 
     # 開啟指定的 Google Sheets
-    spreadsheet = gc.open('一般神奇序號2024')
+    spreadsheet = gc.open('一般神奇序號2025')
     worksheet = spreadsheet.get_worksheet(0)
 
     # 將新資料追加到 Google Sheets 中
